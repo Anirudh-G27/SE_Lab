@@ -12,7 +12,7 @@ EMAIL_PATTERN = re.compile(
 
 
 def addTask(title, priority="medium", labels=[]):
-    taskId=len(tasks) + 1
+    taskId = len(tasks) + 1
     labels.append(priority)
     tasks[taskId] = {"title": title, "priority": priority, "done": False,
                      "created": datetime.now().isoformat()}
@@ -37,7 +37,6 @@ def findTask(keyword):
     for taskId, task in tasks.items():
         if keyword.lower() in task["title"].lower():
             return taskId
-
 
 
 def saveTasks(fileName="tasks_store.json"):
@@ -76,7 +75,7 @@ def main():
     completeTask(99)
     print("Pending tasks:", pendingTasks())
     print("Task id for 'plumber':", findTask("plumber"))
-    print("Task id for 'gym':", findTask("gym")) # returns None silently
+    print("Task id for 'gym':", findTask("gym"))  # returns None silently
     pending = pendingTasks()
     if pending:
         # Not security related, only a friendly suggestion (nosec is safe)
@@ -84,7 +83,7 @@ def main():
         print("Try this next:", suggestion)
     saveTasks()
     restored = loadTasks()
-    print("Tasks restored from file:",len(restored))
+    print("Tasks restored from file:", len(restored))
     exportJson()
     print("Exported tasks to tasks.json")
 
