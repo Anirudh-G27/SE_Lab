@@ -12,7 +12,7 @@ EMAIL_PATTERN = re.compile(
 
 
 def addTask(title, priority="medium", labels=[]):
-    taskId=len(tasks) + 1
+    taskId = len(tasks) + 1
     labels.append(priority)
     tasks[taskId] = {"title": title, "priority": priority, "done": False,
                      "created": datetime.now().isoformat()}
@@ -39,7 +39,6 @@ def findTask(keyword):
             return taskId
 
 
-
 def saveTasks(fileName="tasks_store.json"):
     with open(fileName, "w") as f:
         json.dump(tasks, f, indent=2)
@@ -56,7 +55,7 @@ def exportJson(fileName="tasks.json"):
 
 
 def remindByEmail(address):
-    # No shell is used, and the address is validated, so B603 is a false alarm
+    # No shell is used and the address is validated, so B603 is a false alarm
     if not EMAIL_PATTERN.fullmatch(address):
         raise ValueError("Invalid e-mail address")
     mail = shutil.which("mail")
@@ -76,7 +75,7 @@ def main():
     completeTask(99)
     print("Pending tasks:", pendingTasks())
     print("Task id for 'plumber':", findTask("plumber"))
-    print("Task id for 'gym':", findTask("gym")) # returns None silently
+    print("Task id for 'gym':", findTask("gym"))  # returns None silently
     pending = pendingTasks()
     if pending:
         # Not security related, only a friendly suggestion (nosec is safe)
@@ -84,7 +83,7 @@ def main():
         print("Try this next:", suggestion)
     saveTasks()
     restored = loadTasks()
-    print("Tasks restored from file:",len(restored))
+    print("Tasks restored from file:", len(restored))
     exportJson()
     print("Exported tasks to tasks.json")
 
